@@ -2,7 +2,8 @@ import React, {Component} from 'react'
 import KanbanBoard from '../components/kanban-board'
 import Column from '../components/kanban-column'
 import data from '../../task.json'
-import Modal from '../../modal/containers/modal'
+import ModalContainer from '../../modal/containers/modal'
+import Modal from '../../modal/components/modal'
 
 
 
@@ -111,10 +112,6 @@ class Kanban extends Component{
       <Column title="TODO" tareas={this.state.TYpeTodo} key={1} id="TODO" handleStatusChange={this.handleStatusChange} bg="bg-primary" btnNext={true}/>
       <Column title="DOING" tareas={this.state.TypeInProgress} key={2} handleStatusChange={this.handleStatusChange} id="INPROGRESS" bg="bg-warning" btnNext={true} />
       <Column title="FINISH" tareas={this.state.TypeDone} key={3} id="DONE" bg="bg-success" btnNext={false}/>
-      <Modal show={true}
-          onClose={this.toggleModal}>
-          Here's some content for the modal
-        </Modal>
     </KanbanBoard>
     )
   }
