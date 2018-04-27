@@ -2,15 +2,12 @@ import React, {Component} from 'react'
 import KanbanBoard from '../components/kanban-board'
 import Column from '../components/kanban-column'
 import data from '../../task.json'
-import ModalContainer from '../../modal/containers/modal'
 import Modal from '../../modal/components/modal'
-
-
+import ModalContainer from '../../modal/containers/modal'
 
 class Kanban extends Component{
   constructor(props){
     super(props);
-    this.handleChange= this.handleChange.bind(this);
     this.next = this.next.bind(this);
     this.handleStatusChange = this.handleStatusChange.bind(this);
     this.state = {
@@ -18,18 +15,28 @@ class Kanban extends Component{
       TypeDone:[],
       TypeInProgress:[],
       TYpeTodo:[],
-      
     }
   }
-  handleChange(){
-    this.setState( state => ({
-      tasks:data.tasks,
-      TypeDone:[],
-      TypeInProgress:[],
-      TYpeTodo:[],
-      })
-    )
+
+  addTask=()=>{
+    let title=document.getElementById("newTask").value;
+    let tareas = this.state.TYpeTodo;
+    let newTask={
+      id: 64514,
+      priority: "PRIORITY_HIGHEST",
+      title: title,
+      epicLink: "React buidings",
+      status: "TYPE_INPROGRESS"
+    };
+    tareas.push(newTask);
+    this.setState({
+      tasks: [],
+      TypeDone:this.state.TypeDone,
+      TypeInProgress:this.state.TypeInProgress,
+      TYpeTodo:tareas,
+    })
   }
+
 
   handleStatusChange(item){
     let tasksToSplice;
@@ -108,11 +115,15 @@ class Kanban extends Component{
       else return this.state.TypeInProgress.push(x)
     })
     return (
-    <KanbanBoard>
-      <Column title="TODO" tareas={this.state.TYpeTodo} key={1} id="TODO" handleStatusChange={this.handleStatusChange} bg="bg-primary" btnNext={true}/>
-      <Column title="DOING" tareas={this.state.TypeInProgress} key={2} handleStatusChange={this.handleStatusChange} id="INPROGRESS" bg="bg-warning" btnNext={true} />
-      <Column title="FINISH" tareas={this.state.TypeDone} key={3} id="DONE" bg="bg-success" btnNext={false}/>
-    </KanbanBoard>
+    <div>
+      <KanbanBoard>
+        <Column title="TYPE_TODO" tareas={this.state.TYpeTodo} key={1} id="TODO" handleStatusChange={this.handleStatusChange} bg="bg-primary" btnNext={true} handleModal={this.handleModal} />
+        <Column title="TYPE_INPROGRESS" tareas={this.state.TypeInProgress} key={2} handleStatusChange={this.handleStatusChange} id="INPROGRESS" bg="bg-warning" btnNext={true} />
+        <Column title="TYPE_DONE" tareas={this.state.TypeDone} key={3} id="DONE" bg="bg-success" btnNext={false}/>
+      </KanbanBoard>
+      <div><a class="btn btn-primary" data-toggle="modal" href="#myModal">Launch Modal</a></div>
+       <Modal addTask={this.addTask}/> 
+      </div>
     )
   }
 }

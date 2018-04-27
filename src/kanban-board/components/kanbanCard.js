@@ -28,11 +28,10 @@ class KanbanCard extends PureComponent{
     return (
     <div className={"card text-white mb-3 "+bg} style={divstyles} ref={this.props.setInputRef} >
     <div className="card-body">
-      <p> status= {status} </p>
-      <h5 className="card-title">{title} id=<span>{id}</span></h5>
+      <p>status= {status}</p>
+      {title} id=<span>{id}</span>
       <p>{prioridad}</p>
       <input type="button" onClick={this.handleClick} value="Eliminar"/>
-      
       <input type="button" onClick={this.handleStatusChange} style={buttonStyle} value="->"/>
     </div>
   </div>

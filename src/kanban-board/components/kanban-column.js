@@ -1,5 +1,9 @@
 import React, {Component} from 'react'
 import Card from './kanbanCard'
+import Modal from '../../modal/components/modal'
+import ModalContainer from '../../modal/containers/modal'
+import {createPortal } from 'react-dom';
+import './kanban-column.css'
 
 
 class kanban_layout extends Component{
@@ -8,7 +12,8 @@ class kanban_layout extends Component{
     super(props);
     this.cambiandoTODO=this.cambiandoTODO.bind(this);
     this.state={
-      tareas:props.tareas
+      tareas:props.tareas,
+      click:false,
     }
   }
 
@@ -24,16 +29,15 @@ class kanban_layout extends Component{
     this.props.cambiandoTODO(this.state.tareas)
   }
 
-  addTask=()=>{
-    console.log("gasdf")
-    //    let ultimaTarea= this.state.tareas[this.state.tareas.length-1];
+  addTask=(title)=>{
+    //let ultimaTarea= this.state.tareas[this.state.tareas.length-1];
     let tareas = this.state.tareas;
     let newTask={
       id: 64514,
       priority: "PRIORITY_HIGHEST",
-      title: "esta es la nueva tarea",
+      title: title,
       epicLink: "React buidings",
-      status: "TYPE_TODO"
+      status: this.props.title
     };
     tareas.push(newTask);
     this.setState({
@@ -49,31 +53,8 @@ class kanban_layout extends Component{
   componentDidMount(){
     console.log("componente montado")
   }
-/**
- update=(listaTareas)=>{
-    let cards=[];
-     this.state.tareas.map((itemTask, index) => {
-        cards.push(
-          <Card
-              bg={this.props.bg}
-              title={itemTask.title}
-              prioridad={itemTask.prioridad}
-              display={itemTask.display}
-              key={itemTask.id}
-              id={itemTask.id}
-              imprimir={this.alertKey}
-              item={itemTask}
-              click={this.handleClickCard}
-              index={index}
-          />
-        ) 
-      })
-    
-    ReactDOM.render( cards, document.getElementById("TODO-body") )
-  } 
- */
+
   render(){
-  const {title} = this.props;
   const tam={
   maxWidth:"18rem",
   padding:0
@@ -84,10 +65,10 @@ class kanban_layout extends Component{
   return(
       <div className="card border-primary col-md-3 mb-3" id={this.props.id} style={tam}>
         <div className="card-header justify-content-between d-flex">
-          <span> {title} </span>
+          <span> {this.props.id} </span>
           <span className="badge badge-pill badge-secondary" style={pillBadgeStyle}>{this.props.tareas.length}</span>
         </div>
-        <div className="card-body text-primary" id={this.props.id+"-body"}>
+        <div className="card-body text-primary columna" id={this.props.id+"-body"}>
     
           {this.state.tareas.map((itemTask, index) => {
           return (
@@ -110,14 +91,14 @@ class kanban_layout extends Component{
             />
           ) 
         })}
-        <input type="button" onClick={this.addTask} value="Añadir" />
+        
+        
+        
         </div>
       </div>
     
     
   )
   }
-  
 }
-
 export default kanban_layout;
