@@ -104,7 +104,7 @@ class Kanban extends Component{
 
   setInputRef = element => {
     this.input.push = element;
-  }
+  }  
 
   render(){
     this.state.tasks.map((x) => {
