@@ -4,7 +4,7 @@ import React, {PureComponent} from 'react';
 class Modal extends PureComponent {
 
   handleForm=(e)=>{
-    alert();
+    e.preventDefault();
     this.props.addTask("gerald")
   }
 
@@ -23,11 +23,10 @@ class Modal extends PureComponent {
               <div className="modal-body">
               <form onSubmit={this.handleForm}>
                 <div className="form-group">
-                  <label htmlFor="exampleInputEmail1">Email address</label>
-                  <input type="email" className="form-control" id="newTask" aria-describedby="emailHelp" placeholder="Escribe una nueva tarea"/>
-                  <small id="emailHelp" className="form-text text-muted">Escribe una nueva tarea.</small>
+                  <label htmlFor="exampleInputEmail1">Escribe una nueva tarea</label>
+                  <input type="text"  className="form-control" id="newTask" aria-describedby="emailHelp"/>
                 </div>
-                <button type="submit" className="btn btn-primary">Submit</button>
+                <button type="submit" className="btn btn-primary">Guardar</button>
               </form>
               </div>
               <div className="modal-footer">
